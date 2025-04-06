@@ -1,0 +1,35 @@
+<div class="app-layout">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>Spanish Learning</h1>
+    </div>
+
+    <div class="sidebar-menu">
+      <a
+        routerLink="/chat"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: false}">
+        <i class="fas fa-comment"></i> Chat
+      </a>
+      <a
+        routerLink="/conversations"
+        routerLinkActive="active">
+        <i class="fas fa-history"></i> History
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <i class="fas fa-user-circle"></i>
+        <span>{{ username }}</span>
+      </div>
+      <button class="logout-btn" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="conversation-history">
+  <div class="history-header">
+    <h2>Your Conversations</h2>
+    <button class="new-convo-btn" (click)="createNewConversation()">
+      <i class="fas fa-plus"></i> New Conversation
+    </button>
+  </div>
+
+  <div class="conversations-list">
+    <div *ngIf="isLoading" class="loading">
+      <p>Loading conversations...</p>
+    </div>
+
+    <div *ngIf="!isLoading && conversations.length === 0" class="empty-state">
+      <p>You don't have any conversations yet.</p>
+      <button (click)="createNewConversation()">Start a conversation</button>
+    </div>
+
+    <div *ngFor="let conversation of conversations"
+         class="conversation-item"
+         (click)="openConversation(conversation._id)">
+      <div class="conversation-info">
+        <h3>{{ conversation.title }}</h3>
+        <p class="timestamp">
+          Last updated: {{ conversation.updatedAt | date:'medium' }}
+        </p>
+      </div>
+
+      <button
+        class="delete-btn"
+        (click)="deleteConversation($event, conversation._id)">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="totalPages > 1" class="pagination">
+    <button
+      [disabled]="currentPage === 1"
+      (click)="prevPage()">
+      <i class="fas fa-chevron-left"></i> Previous
+    </button>
+
+    <span class="page-info">
+      Page {{ currentPage }} of {{ totalPages }}
+    </span>
+
+    <button
+      [disabled]="currentPage === totalPages"
+      (click)="nextPage()">
+      Next <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+</div>

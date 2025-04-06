@@ -1,0 +1,60 @@
+<h1>
+  ASDFFSASF
+</h1>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Login to Spanish Learning Chatbot</h2>
+      <p>Practice your Spanish with our AI chatbot</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          placeholder="Enter your username"
+          [ngClass]="{'invalid': f['username'].invalid && f['username'].touched}"
+        >
+        <div class="validation-error" *ngIf="f['username'].invalid && f['username'].touched">
+          <span *ngIf="f['username'].errors?.['required']">Username is required</span>
+          <span *ngIf="f['username'].errors?.['minlength']">Username must be at least 3 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          [ngClass]="{'invalid': f['password'].invalid && f['password'].touched}"
+        >
+        <div class="validation-error" *ngIf="f['password'].invalid && f['password'].touched">
+          <span *ngIf="f['password'].errors?.['required']">Password is required</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="loginForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Login</span>
+        <span *ngIf="isLoading">Logging in...</span>
+      </button>
+
+      <div class="auth-redirect">
+        <p>Don't have an account? <a routerLink="/register">Register</a></p>
+      </div>
+    </form>
+  </div>
+</div>

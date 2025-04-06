@@ -1,0 +1,87 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Register for Spanish Learning Chatbot</h2>
+      <p>Create an account to start learning Spanish</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          placeholder="Choose a username"
+          [ngClass]="{'invalid': f['username'].invalid && f['username'].touched}"
+        >
+        <div class="validation-error" *ngIf="f['username'].invalid && f['username'].touched">
+          <span *ngIf="f['username'].errors?.['required']">Username is required</span>
+          <span *ngIf="f['username'].errors?.['minlength']">Username must be at least 3 characters</span>
+          <span *ngIf="f['username'].errors?.['maxlength']">Username cannot exceed 30 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          [ngClass]="{'invalid': f['email'].invalid && f['email'].touched}"
+        >
+        <div class="validation-error" *ngIf="f['email'].invalid && f['email'].touched">
+          <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="f['email'].errors?.['email']">Please enter a valid email address</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Choose a password"
+          [ngClass]="{'invalid': f['password'].invalid && f['password'].touched}"
+        >
+        <div class="validation-error" *ngIf="f['password'].invalid && f['password'].touched">
+          <span *ngIf="f['password'].errors?.['required']">Password is required</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          placeholder="Confirm your password"
+          [ngClass]="{'invalid': (f['confirmPassword'].invalid || registerForm.hasError('passwordMismatch')) && f['confirmPassword'].touched}"
+        >
+        <div class="validation-error" *ngIf="(f['confirmPassword'].invalid || registerForm.hasError('passwordMismatch')) && f['confirmPassword'].touched">
+          <span *ngIf="f['confirmPassword'].errors?.['required']">Please confirm your password</span>
+          <span *ngIf="registerForm.hasError('passwordMismatch')">Passwords do not match</span>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="registerForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Register</span>
+        <span *ngIf="isLoading">Creating account...</span>
+      </button>
+
+      <div class="auth-redirect">
+        <p>Already have an account? <a routerLink="/login">Login</a></p>
+      </div>
+    </form>
+  </div>
+</div>

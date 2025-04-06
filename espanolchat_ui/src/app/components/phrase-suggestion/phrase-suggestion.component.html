@@ -1,0 +1,17 @@
+<div class="phrase-suggestion">
+  <button
+    class="suggestion-btn"
+    (click)="getRandomPhrase()"
+    [disabled]="isLoading">
+    <i class="fas fa-lightbulb"></i>
+    <span *ngIf="!isLoading">Suggest Phrase</span>
+    <span *ngIf="isLoading">Loading...</span>
+  </button>
+
+  <button
+    *ngIf="showUndo"
+    class="undo-btn"
+    (click)="undo()">
+    <i class="fas fa-undo"></i> Undo
+  </button>
+</div>
